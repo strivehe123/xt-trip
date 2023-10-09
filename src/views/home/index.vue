@@ -4,17 +4,18 @@
     <div class="banner">
       <img src="@/assets/img/home/banner01.jpeg" alt="" />
     </div>
-    <div class="location">
-      <div class="city">广州</div>
-      <div class="position">
-        <div class="text">我的位置</div>
-        <van-icon name="location-o" />
-      </div>
-    </div>
+    <home-search :hot-suggests="hotSuggests" />
+    <!-- date range -->
   </div>
 </template>
 <script setup>
 import HomeTabBar from './cpns/home-tab-bar.vue'
+import HomeSearch from './cpns/home-search.vue'
+import useHomeStore from '@/store/modules/home'
+import { storeToRefs } from 'pinia'
+const homeStore = useHomeStore()
+const { hotSuggests } = storeToRefs(homeStore)
+homeStore.fetchHotSuggestsData()
 </script>
 <style lang="less" scoped>
 .home {
@@ -23,24 +24,6 @@ import HomeTabBar from './cpns/home-tab-bar.vue'
       width: 100%;
     }
     margin-bottom: 10px;
-  }
-  .location {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 20px;
-    font-size: 16px;
-    .city {
-      flex: 1;
-    }
-    .position {
-      display: flex;
-      align-items: center;
-      width: 100px;
-      box-sizing: border-box;
-      .text {
-        margin-right: 5px;
-      }
-    }
   }
 }
 </style>
