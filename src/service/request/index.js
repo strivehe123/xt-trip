@@ -1,5 +1,7 @@
 import axios from 'axios'
+import useMainStore from '@/store/modules/main'
 import { BASE_URL, TIMEOUT } from './config'
+const mainStore = useMainStore()
 class XTRequest {
   constructor(baseURL, timeout = 5000) {
     this.instance = axios.create({
@@ -9,6 +11,7 @@ class XTRequest {
     // 请求拦截器
     this.instance.interceptors.request.use(
       (config) => {
+        mainStore.isLoading = true
         return config
       },
       (err) => {
@@ -18,9 +21,11 @@ class XTRequest {
     // 响应拦截器
     this.instance.interceptors.response.use(
       (res) => {
+        mainStore.isLoading = false
         return res
       },
       (err) => {
+        mainStore.isLoading = false
         return err
       }
     )

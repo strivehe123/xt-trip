@@ -36,6 +36,11 @@
         </div>
       </template>
     </div>
+    <!-- 搜索按钮 -->
+    <!-- 搜索按钮 -->
+    <div class="search-btn">
+      <div class="btn" @click="onSearch">开始搜索</div>
+    </div>
     <van-calendar
       v-model:show="show"
       type="range"
@@ -74,10 +79,15 @@ const startDateStr = computed(() => formatMonDay(startDate.value))
 const endtDateStr = computed(() => formatMonDay(endDate.value))
 const stayDay = computed(() => getDiffDay(startDate.value, endDate.value))
 const show = ref(false)
+// 日期选择
 const onConfirm = (value) => {
   show.value = false
   mainStore.startDate = value[0]
   mainStore.endDate = value[1]
+}
+// 搜索按钮
+const onSearch = () => {
+  router.push('/search')
 }
 </script>
 <style lang="less" scoped>
@@ -126,6 +136,20 @@ const onConfirm = (value) => {
     padding: 4px 8px;
     border-radius: 14px;
     font-size: 12px;
+  }
+}
+.search-btn {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  .btn {
+    width: 324px;
+    height: 38px;
+    line-height: 38px;
+    text-align: center;
+    color: #fff;
+    border-radius: 20px;
+    background-image: var(--theme-linear-gradient);
   }
 }
 </style>
