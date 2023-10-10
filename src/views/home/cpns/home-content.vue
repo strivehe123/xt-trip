@@ -21,12 +21,16 @@
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
 import useHomeStore from '@/store/modules/home'
+import useDetailStore from '@/store/modules/detail'
 import HouseItemV3 from '@/components/house-item-v3/index.vue'
 import HouseItemV9 from '@/components//house-item-v9/index.vue'
+
 const router = useRouter()
 const homeStore = useHomeStore()
+const detailStore = useDetailStore()
 const { houseList } = storeToRefs(homeStore)
 const onItemClick = (item) => {
+  detailStore.houseId = item.houseId
   router.push(`/detail/${item.houseId}`)
 }
 </script>
