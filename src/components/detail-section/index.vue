@@ -19,7 +19,7 @@ defineProps({
   },
   moreText: {
     type: String,
-    default: '查看更多'
+    default: ''
   }
 })
 </script>
