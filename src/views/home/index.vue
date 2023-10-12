@@ -16,8 +16,14 @@
     </div>
   </div>
 </template>
+<script>
+export default {
+  name: 'home'
+}
+</script>
+
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, onActivated, ref, watch } from 'vue'
 import HomeTabBar from './cpns/home-tab-bar.vue'
 import HomeSearch from './cpns/home-search.vue'
 import HomeCategory from './cpns/home-category.vue'
@@ -41,6 +47,12 @@ const isShowSearch = computed(() => {
   } else {
     return false
   }
+})
+onActivated(() => {
+  // console.log(scrollTop.value)
+  homeRef.value.scrollTo({
+    top: scrollTop.value
+  })
 })
 watch(isBottom, (newValue) => {
   homeStore.fetchHouseListData(() => {

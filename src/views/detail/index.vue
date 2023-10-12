@@ -95,8 +95,12 @@ const isShowTab = computed(() => {
   return scrollTop.value > 100
 })
 // 点击切换标签
+let isClick = false
+let currentDistance = -1
 const onClickTab = (item) => {
   const currentRef = sectionEls.value[item.title]
+  isClick = true
+  currentDistance = currentRef.offsetTop - 44
   detailRef.value.scrollTo({
     top: currentRef.offsetTop - 44,
     behavior: 'smooth'
@@ -113,6 +117,8 @@ const getSectionRef = (item) => {
 const tabs = computed(() => Object.keys(sectionEls.value))
 //监听scroll 滚动 tab 改变激活状态
 watch(scrollTop, (newValue) => {
+  if (currentDistance === newValue) isClick = false
+  if (isClick) return
   const els = Object.values(sectionEls.value)
   const values = els.map((item) => item.offsetTop)
   let index = values.length - 1
